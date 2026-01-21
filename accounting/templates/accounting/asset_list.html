@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>資產管理</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light p-5">
+    <div class="container bg-white p-4 shadow rounded">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>💰 初始資產管理</h2>
+            <div>
+                <a href="/" class="btn btn-outline-secondary">回儀表板</a>
+                <a href="{% url 'asset_add' %}" class="btn btn-primary">+ 新增資產</a>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>資產名稱</th>
+                    <th>類型</th>
+                    <th>金額</th>
+                    <th>年化報酬率</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asset in assets %}
+                <tr>
+                    <td class="fw-bold">{{ asset.name }}</td>
+                    <td><span class="badge bg-info text-dark">{{ asset.get_type_display }}</span></td>
+                    <td>${{ asset.amount }}</td>
+                    <td>{{ asset.interest_rate }}%</td>
+                    <td>
+                        <a href="{% url 'asset_edit' asset.pk %}" class="btn btn-sm btn-warning">編輯</a>
+                        <a href="{% url 'asset_delete' asset.pk %}" class="btn btn-sm btn-danger">刪除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
